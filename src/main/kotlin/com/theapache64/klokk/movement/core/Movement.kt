@@ -1,15 +1,17 @@
 package com.theapache64.klokk.movement.core
 
-import com.theapache64.klokk.movement.RippleMatrixGenerator
 import com.theapache64.klokk.movement.StandByMatrixGenerator
 import com.theapache64.klokk.movement.TranceMatrixGenerator
+import com.theapache64.klokk.movement.alphabet.TextMatrixGenerator
+import com.theapache64.klokk.movement.ripple.RippleMatrixGenerator
+import com.theapache64.klokk.movement.snake.WaveMatrixGenerator
 import com.theapache64.klokk.movement.time.TimeMatrixGenerator
 import java.util.*
 
 /**
  * Dynamic animation can't be supported until this fixed -> https://issuetracker.google.com/issues/183220315
  */
-const val DEFAULT_ANIMATION_DURATION = 4500
+const val DEFAULT_ANIMATION_DURATION = 4000
 
 
 sealed class Movement(
@@ -21,15 +23,13 @@ sealed class Movement(
     /**
      * To move clocks to stand by position
      */
-    data class StandBy(
-        val degree: Float = DEFAULT_STAND_BY_DEGREE,
-    ) : Movement(durationInMillis = DEFAULT_ANIMATION_DURATION) {
-        companion object {
-            const val DEFAULT_STAND_BY_DEGREE = 225f
-        }
-
+    object StandBy : Movement(durationInMillis = DEFAULT_ANIMATION_DURATION) {
         override fun getMatrixGenerator(): MatrixGenerator<Movement> {
             return StandByMatrixGenerator(this)
+        }
+
+        override fun toString(): String {
+            return "StandBy"
         }
     }
 
@@ -62,10 +62,13 @@ sealed class Movement(
         }
 
         enum class To {
-            START, END
+            START, END, TIME_TABLE
         }
     }
 
+    /**
+     * To show time
+     */
     data class Time(
         val date: Date = Date(),
     ) : Movement(durationInMillis = DEFAULT_ANIMATION_DURATION) {
@@ -74,5 +77,30 @@ sealed class Movement(
         }
     }
 
+    /**
+     * TODO :WIP
+     */
+    data class Text(
+        val text: String,
+    ) : Movement(durationInMillis = DEFAULT_ANIMATION_DURATION) {
+        override fun getMatrixGenerator(): MatrixGenerator<Movement> {
+            return TextMatrixGenerator(this)
+        }
 
+        enum class Alignment {
+            CENTER, LEFT
+        }
+    }
+
+    data class Wave(
+        val state: State,
+    ) : Movement(durationInMillis = DEFAULT_ANIMATION_DURATION) {
+        override fun getMatrixGenerator(): MatrixGenerator<Movement> {
+            return WaveMatrixGenerator(this)
+        }
+
+        enum class State {
+            START, END
+        }
+    }
 }

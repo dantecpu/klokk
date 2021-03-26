@@ -16,6 +16,10 @@
 - [Watch](https://www.youtube.com/watch?v=lTsZOs_PkbM) Development - Behind the Scenes - Part 1
 - [Watch](https://www.youtube.com/watch?v=ejp9850FWy8) Development - Behind the Scenes - Part 2
 
+## 🏃 Run
+
+- Clone the repo and run `./gradlew run`
+
 ## 💡 Inspiration
 
 - Nezih Yılmaz's kinetic countdown timer
@@ -62,10 +66,12 @@ Give a ⭐️ if this project helped you!
 
 ## ☑️ TODO
 
--[ ] Dark Theme Support
--[ ] Wave Movement
--[ ] Tornado Movement
--[ ] Background Music
+- [ ] Dark Theme Support
+- [ ] Wave Movement
+- [ ] Tornado Movement
+- [ ] Background Music
+- [x] Add second movement to border clocks
+- [ ] Add alphabets
 
 ## 📝 License
 

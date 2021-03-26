@@ -1,7 +1,7 @@
 package com.theapache64.klokk.composable
 
 import androidx.compose.animation.core.Easing
-import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.desktop.Window
@@ -17,26 +17,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.theapache64.klokk.CLOCK_BACKGROUND
 import com.theapache64.klokk.theme.CodGray
 import kotlin.math.cos
 import kotlin.math.sin
 
 
 private val NEEDLE_COLOR = Color.White
+val CLOCK_BACKGROUND = CodGray
 
 @Composable
 fun Clock(
     _needleOneDegree: Float = 270f,
     _needleTwoDegree: Float = 0f,
     durationInMillis: Int = 500,
-    easing: Easing = FastOutSlowInEasing,
+    delay: Int = 0,
+    easing: Easing = LinearEasing,
     modifier: Modifier = Modifier,
 ) {
 
     val needleOneDegree = (_needleOneDegree * Math.PI / 180).toFloat()
     val needleTwoDegree = (_needleTwoDegree * Math.PI / 180).toFloat()
-    val animationSpec = tween<Float>(durationMillis = durationInMillis, easing = easing)
+    val animationSpec = tween<Float>(durationMillis = durationInMillis, easing = easing, delayMillis = delay)
 
     val needleOneDegreeAnim by animateFloatAsState(
         needleOneDegree,
@@ -108,7 +109,7 @@ fun main(args: Array<String>) {
         val scope = rememberCoroutineScope()
 
         Box(
-            modifier = Modifier.fillMaxSize().background(CodGray)
+            modifier = Modifier.fillMaxSize().background(Color.Black)
         ) {
 
             Clock(

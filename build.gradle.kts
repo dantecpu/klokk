@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.theapache64"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     jcenter()
@@ -21,6 +21,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
     implementation(compose.desktop.currentOs)
+    implementation(compose.materialIconsExtended)
 }
 
 tasks.test {
@@ -33,7 +34,7 @@ tasks.withType<KotlinCompile>() {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "com.theapache64.klokk.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "Klokk"
